@@ -1,4 +1,6 @@
 import os
+import sys
+from pathlib import Path
 import shutil
 import glob
 import re
@@ -81,9 +83,13 @@ def decoder(in_path):
 
 def main():
   
-    in_path = 'C:/Users/HarmerA/Dropbox/downloads/labs/Zelandoperla fenestrataT'
+    if len(sys.argv) != 3:
+        raise Exception('Unexpected number of inputs.\n'
+            'Example: python decode_rename.py input_dir output_dir')
+
+    in_path = Path(sys.argv[1])
+    out_path = Path(sys.argv[2])
     print('\nSource files:', in_path)
-    out_path = 'C:/Users/HarmerA/Dropbox/downloads/labs_out/'
     print('Output destination:', out_path)
     
     file_names = glob.glob(in_path + '/*.tif*')
@@ -118,7 +124,10 @@ def main():
     for f in failed_attempts:
         print(f)
 
-    # frame = cv2.imread("C:/Users/HarmerA/OneDrive - MWLR/data/type_files_renaming/barcodes/Aoraia aspina_HT_lbls.tif")
+
+    ### For visualisation
+    
+    # frame = cv2.imread("")
   
     # try:
     #     print('Trying barcode decoder...')
